@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unhook — Cancel the ones that fight back</title>
+  <meta name="description" content="Playbooks, phone scripts, and certified-mail letters for the subscriptions designed to be hard to leave. No bank login. No cut of your savings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@380;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="top">
+    <a class="brand" href="#top" data-reset>
+      <span class="mark">⏻</span>
+      Unhook
+    </a>
+    <nav>
+      <a href="#playbooks">Playbooks</a>
+      <a href="#bleed">Bleed list</a>
+      <a href="#why">Why this</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="kicker">Painkiller · not a vitamin</p>
+      <h1>They built a maze.<br /><em>We drew the exit.</em></h1>
+      <p class="lede">
+        Gyms that refuse phone cancels. Radio trials that convert in your car.
+        Software that hides a 50% breakup fee on the last screen.
+        Unhook is the script, the letter, and the date you have to beat.
+      </p>
+      <div class="search-wrap">
+        <label class="sr" for="q">Search a company</label>
+        <input id="q" type="search" placeholder="Planet Fitness, SiriusXM, Adobe, Xfinity…" autocomplete="off" />
+        <p class="hint">No bank login. No “we’ll take half your savings.” Just the map.</p>
+      </div>
+      <div class="stats">
+        <div><b>60%</b><span>of people say cancel buttons are hidden or missing</span></div>
+        <div><b>$2.5B</b><span>FTC settlement with Amazon over its cancel maze</span></div>
+        <div><b>$0</b><span>cut of what you save. Keep the money.</span></div>
+      </div>
+    </section>
+
+    <section id="playbooks" class="panel">
+      <div class="panel-head">
+        <h2>The hard list</h2>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <section id="bleed" class="panel bleed">
+      <div class="panel-head">
+        <h2>Bleed list</h2>
+        <p>Park the ones you’re actually paying for. Totals stay on this device.</p>
+      </div>
+      <div class="bleed-box">
+        <div class="bleed-add">
+          <select id="bleed-service"></select>
+          <input id="bleed-amount" type="number" min="0" step="0.01" placeholder="$ / mo" />
+          <button id="bleed-add-btn" type="button">Add</button>
+        </div>
+        <div id="bleed-summary" class="bleed-summary"></div>
+        <ul id="bleed-list" class="bleed-list"></ul>
+      </div>
+    </section>
+
+    <section id="why" class="panel why">
+      <h2>Why this exists</h2>
+      <div class="why-grid">
+        <article>
+          <h3>The pain is documented</h3>
+          <p>People close entire bank accounts to stop a $10 gym. SiriusXM retention calls run 20–45 minutes. Adobe shows the breakup fee after you have already clicked through the guilt screens.</p>
+        </article>
+        <article>
+          <h3>Incumbents take a cut</h3>
+          <p>Rocket Money and lookalikes want your bank login, then a slice of “savings.” Unhook is a weapon you hold. Nothing leaves the browser except the link you choose to open.</p>
+        </article>
+        <article>
+          <h3>Regulation blinked</h3>
+          <p>The FTC Click-to-Cancel rule was vacated on procedure in 2025 and revived as an ANPRM in 2026. Until it actually bites, the maze is the product.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <aside id="drawer" class="drawer" hidden>
+    <div class="drawer-inner">
+      <button class="close" id="close" type="button" aria-label="Close">×</button>
+      <div id="detail"></div>
+    </div>
+  </aside>
+
+  <footer>
+    <p>Unhook is a consumer toolkit, not legal advice. Club, plan, and state rules move. Screenshot every confirmation.</p>
+    <p class="fine">Built as a niche painkiller MVP. Request a missing playbook from the search box — if we don’t have it, the empty state says so.</p>
+  </footer>
+
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
