@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unhook — Cancel the ones that fight back</title>
+  <meta name="description" content="Playbooks, phone scripts, and certified-mail letters for the subscriptions designed to be hard to leave. Share the win, not your bank login." />
+  <meta property="og:title" content="Unhook — They built a maze. We drew the exit." />
+  <meta property="og:description" content="Cancel playbooks you can actually send a friend. Win cards, bleed receipts, no bank login." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Outfit:wght@380;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="top">
+    <a class="brand" href="#top" data-reset>
+      <span class="mark">⏻</span>
+      Unhook
+    </a>
+    <nav>
+      <a href="#playbooks">Playbooks</a>
+      <a href="#bleed">Bleed list</a>
+      <a href="#unhooked">Unhooked</a>
+      <a href="#why">Why this</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="kicker">Painkiller · not a vitamin</p>
+      <h1>They built a maze.<br /><em>We drew the exit.</em></h1>
+      <p class="lede">
+        Gyms that refuse phone cancels. Radio trials that convert in your car.
+        Software that hides a 50% breakup fee on the last screen.
+        Unhook is the script, the letter, and the date you have to beat —
+        plus a card worth sending when you actually get out.
+      </p>
+      <div class="search-wrap">
+        <label class="sr" for="q">Search a company</label>
+        <input id="q" type="search" placeholder="Planet Fitness, SiriusXM, Adobe, Xfinity…" autocomplete="off" />
+        <p class="hint">No bank login. No “we’ll take half your savings.” Just the map — and a receipt you can share.</p>
+      </div>
+      <div class="stats">
+        <div><b>60%</b><span>of people say cancel buttons are hidden or missing</span></div>
+        <div><b>$2.5B</b><span>FTC settlement with Amazon over its cancel maze</span></div>
+        <div><b>$0</b><span>cut of what you save. Keep the money. Share the exit.</span></div>
+      </div>
+    </section>
+
+    <section id="playbooks" class="panel">
+      <div class="panel-head">
+        <h2>The hard list</h2>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div id="grid" class="grid"></div>
+    </section>
+
+    <section id="bleed" class="panel bleed">
+      <div class="panel-head">
+        <h2>Bleed list</h2>
+        <p>Park the ones you’re actually paying for. Totals stay on this device. The yearly number is the thing people send.</p>
+      </div>
+      <div class="bleed-box">
+        <div class="bleed-add">
+          <select id="bleed-service"></select>
+          <input id="bleed-custom" class="bleed-custom" type="text" placeholder="Company name" hidden />
+          <input id="bleed-amount" type="number" min="0" step="0.01" placeholder="$ / mo" />
+          <button id="bleed-add-btn" type="button">Add</button>
+        </div>
+        <div id="bleed-summary" class="bleed-summary"></div>
+        <ul id="bleed-list" class="bleed-list"></ul>
+        <div class="actions bleed-share-row">
+          <button class="btn" id="bleed-share" type="button">Share the leak</button>
+          <p class="hint">The card shows the yearly total and a count — not the company names.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="unhooked" class="panel">
+      <div class="panel-head">
+        <h2>Unhooked</h2>
+        <p>Wins stay here. Each one is a card someone might actually post.</p>
+      </div>
+      <div id="trophy-empty" class="empty">Mark a bleed item Unhooked. We mint a receipt — company, yearly back, date. No name. No account ID.</div>
+      <ul id="trophy-list" class="trophy-list"></ul>
+    </section>
+
+    <section id="why" class="panel why">
+      <h2>Why this exists</h2>
+      <div class="why-grid">
+        <article>
+          <h3>The pain is documented</h3>
+          <p>People close entire bank accounts to stop a $10 gym. SiriusXM retention calls run 20–45 minutes. Adobe shows the breakup fee after you have already clicked through the guilt screens.</p>
+        </article>
+        <article>
+          <h3>Incumbents take a cut</h3>
+          <p>Rocket Money and lookalikes want your bank login, then a slice of “savings.” Unhook is a weapon you hold. Nothing leaves the browser except the link or card you choose to send.</p>
+        </article>
+        <article>
+          <h3>Share the exit, not the login</h3>
+          <p>People do not share a settings page. They share a number that hurts, a script that worked, a card that says they got out. Win cards, bleed receipts, and playbook links are the product.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <aside id="drawer" class="drawer" hidden>
+    <div class="drawer-inner" role="dialog" aria-modal="true" aria-labelledby="svc-name">
+      <button class="close" id="close" type="button" aria-label="Close">×</button>
+      <div id="detail"></div>
+    </div>
+  </aside>
+
+  <div id="share-sheet" class="share-sheet" hidden>
+    <div class="share-sheet-inner" role="dialog" aria-modal="true" aria-labelledby="share-title">
+      <button class="close" id="share-close" type="button" aria-label="Close share">×</button>
+      <p class="kicker">Worth sending</p>
+      <h2 id="share-title">Share this</h2>
+      <p class="lede share-lede" id="share-sub"></p>
+      <div class="share-preview-wrap">
+        <canvas id="share-preview" width="1080" height="1350"></canvas>
+      </div>
+      <p id="share-caption" class="script"></p>
+      <div class="actions">
+        <button class="btn" id="share-native" type="button">Share</button>
+        <button class="btn ghost" id="share-download" type="button">Save PNG</button>
+        <button class="btn ghost" id="share-copy-link" type="button">Copy link</button>
+        <button class="btn ghost" id="share-copy-caption" type="button">Copy caption</button>
+        <a class="btn ghost" id="share-x" target="_blank" rel="noopener">Post on X</a>
+      </div>
+      <p class="hint">Cards never include your name, email, or member IDs. A friend who opens the link sees the card, then the playbook.</p>
+    </div>
+  </div>
+
+  <div id="card-landing" class="card-landing" hidden>
+    <div class="card-landing-inner">
+      <p class="kicker" id="landing-kicker">Someone sent you an exit</p>
+      <h2 id="landing-title"></h2>
+      <p class="lede" id="landing-lede"></p>
+      <div class="share-preview-wrap landing-preview">
+        <canvas id="landing-canvas" width="1080" height="1350"></canvas>
+      </div>
+      <div class="actions">
+        <button class="btn" id="landing-cta" type="button">Open the playbook</button>
+        <button class="btn ghost" id="landing-share" type="button">Share this card</button>
+        <button class="btn ghost" id="landing-dismiss" type="button">Browse Unhook</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Unhook is a consumer toolkit, not legal advice. Club, plan, and state rules move. Screenshot every confirmation.</p>
+    <p class="fine">Built as a niche painkiller. Request a missing playbook from the search box — if we don’t have it, the empty state lets you send the request to a friend still paying them.</p>
+  </footer>
+
+  <script src="./data.js"></script>
+  <script src="./share.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
