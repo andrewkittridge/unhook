@@ -446,7 +446,14 @@ footer {
 .btn, .chip, .card, .bleed-list button, .trophy-list li button {
   touch-action: manipulation;
 }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
 .btn[hidden] { display: none !important; }
+.btn.is-done,
+.btn.ghost.is-done {
+  background: var(--good) !important;
+  color: #14210a !important;
+  border-color: var(--good) !important;
+}
 @media (max-width: 720px) {
   .stats, .cols, .fields, .bleed-list li { grid-template-columns: 1fr; }
   nav { display: none; }
