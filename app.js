@@ -596,13 +596,13 @@
   function flashBtn(btn, done) {
     if (!btn) return;
     var label = btn.textContent;
-    btn.textContent = done || "Copied";
+    btn.textContent = done || "Copied ✓";
     btn.classList.add("is-done");
     clearTimeout(btn._flash);
     btn._flash = setTimeout(function () {
       btn.textContent = label;
       btn.classList.remove("is-done");
-    }, 1600);
+    }, 2500);
   }
 
   function fallbackCopy(text) {
@@ -620,17 +620,13 @@
   }
 
   function copyText(text, btn, done) {
-    var finish = function () {
-      flashBtn(btn, done);
-    };
+    flashBtn(btn, done);
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(finish).catch(function () {
+      navigator.clipboard.writeText(text).catch(function () {
         fallbackCopy(text);
-        finish();
       });
     } else {
       fallbackCopy(text);
-      finish();
     }
   }
 
@@ -651,8 +647,8 @@
       kicker.textContent = "The leak";
       title.textContent = Share.money(payload.y) + " / year";
       lede.textContent =
-        payload.c +
-        " subscriptions still drafting. Park yours locally. Share the number, not the names.";
+        Share.countLabel(payload.c, "subscription") +
+        " still drafting. Park yours locally. Share the number, not the names.";
       cta.textContent = "Start a bleed list";
     } else {
       kicker.textContent = "Someone sent you an exit";
@@ -696,7 +692,7 @@
   }
 
   function toastCopy(btn, text) {
-    copyText(text, btn, "Copied");
+    copyText(text, btn, "Copied ✓");
   }
 
   function bind() {
@@ -760,7 +756,7 @@
       if (e.target.closest("[data-share-map]")) shareMap(p);
       if (e.target.closest("[data-add-bleed]")) {
         addBleed(p.id, p.name, p.typical);
-        flashBtn(e.target.closest("button"), "On the bleed list");
+        flashBtn(e.target.closest("button"), "Parked on this device");
       }
     });
     $("#bleed-service").addEventListener("change", function () {

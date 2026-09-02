@@ -34,6 +34,11 @@
     return Math.round((Number(n) || 0) * 12);
   }
 
+  function countLabel(n, word) {
+    var c = Number(n) || 0;
+    return c + " " + word + (c === 1 ? "" : "s");
+  }
+
   function encodeCard(payload) {
     if (!payload || typeof payload !== "object") throw new Error("payload required");
     var body = { v: VERSION };
@@ -94,9 +99,7 @@
         "I'm leaking " +
         money(payload.y) +
         "/year across " +
-        payload.c +
-        " subscription" +
-        (payload.c === 1 ? "" : "s") +
+        countLabel(payload.c, "subscription") +
         ". No bank login. " +
         link
       ).trim();
@@ -209,7 +212,7 @@
     ctx.fillStyle = "#d6d0c4";
     ctx.font = "500 32px Outfit, system-ui, sans-serif";
     var n = payload.c || 0;
-    ctx.fillText(n + " subscription" + (n === 1 ? "" : "s") + " on the list.", 72, 600);
+    ctx.fillText(countLabel(n, "subscription") + " on the list.", 72, 600);
     ctx.fillStyle = "#9a958a";
     ctx.font = "400 28px Outfit, system-ui, sans-serif";
     var trap = wrapText(ctx, "The maze is the product. Track them here — locally. No Plaid. No cut of what you save.", w - 144);
@@ -293,6 +296,7 @@
     renderCard: renderCard,
     money: money,
     yearlyFromMonthly: yearlyFromMonthly,
+    countLabel: countLabel,
     todayISO: todayISO,
   };
 });

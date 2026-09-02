@@ -43,6 +43,8 @@ test("captions are the thing people actually paste", () => {
   assert.match(bleedCap, /\$2,400\/year/);
   assert.match(bleedCap, /4 subscriptions/);
   assert.match(Share.captionFor({ t: "bleed", y: 12, c: 1 }, url), /1 subscription[^s]/);
+  assert.equal(Share.countLabel(1, "subscription"), "1 subscription");
+  assert.equal(Share.countLabel(4, "subscription"), "4 subscriptions");
   const mapCap = Share.captionFor(map, url);
   assert.match(mapCap, /Xfinity hides the cancel button/);
 });
