@@ -448,14 +448,25 @@
   }
 
   function paintShareCanvas(canvas, payload) {
-    return document.fonts.ready.then(function () {
-      var painted = Share.renderCard(payload);
-      var ctx = canvas.getContext("2d");
-      canvas.width = painted.width;
-      canvas.height = painted.height;
-      ctx.drawImage(painted, 0, 0);
-      return painted;
-    });
+    var paint = function () {
+      try {
+        var painted = Share.renderCard(payload);
+        var ctx = canvas.getContext("2d");
+        canvas.width = painted.width;
+        canvas.height = painted.height;
+        ctx.drawImage(painted, 0, 0);
+      } catch (err) {
+        console.error("Unhook card render failed", err);
+      }
+    };
+    if (document.fonts && document.fonts.ready) {
+      var timeout = new Promise(function (resolve) {
+        setTimeout(resolve, 900);
+      });
+      return Promise.race([document.fonts.ready, timeout]).then(paint);
+    }
+    paint();
+    return Promise.resolve();
   }
 
   function openShare(payload, title, sub) {
@@ -582,15 +593,45 @@
     a.click();
   }
 
+  function flashBtn(btn, done) {
+    if (!btn) return;
+    var label = btn.textContent;
+    btn.textContent = done || "Copied";
+    btn.classList.add("is-done");
+    clearTimeout(btn._flash);
+    btn._flash = setTimeout(function () {
+      btn.textContent = label;
+      btn.classList.remove("is-done");
+    }, 1600);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+    } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
   function copyText(text, btn, done) {
-    var label = btn ? btn.textContent : "";
-    navigator.clipboard.writeText(text).then(function () {
-      if (!btn) return;
-      btn.textContent = done || "Copied";
-      setTimeout(function () {
-        btn.textContent = label;
-      }, 1400);
-    });
+    var finish = function () {
+      flashBtn(btn, done);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(finish).catch(function () {
+        fallbackCopy(text);
+        finish();
+      });
+    } else {
+      fallbackCopy(text);
+      finish();
+    }
   }
 
   function showLanding(payload) {
@@ -719,12 +760,7 @@
       if (e.target.closest("[data-share-map]")) shareMap(p);
       if (e.target.closest("[data-add-bleed]")) {
         addBleed(p.id, p.name, p.typical);
-        var btn = e.target.closest("button");
-        var label = btn.textContent;
-        btn.textContent = "On the bleed list";
-        setTimeout(function () {
-          btn.textContent = label;
-        }, 1600);
+        flashBtn(e.target.closest("button"), "On the bleed list");
       }
     });
     $("#bleed-service").addEventListener("change", function () {

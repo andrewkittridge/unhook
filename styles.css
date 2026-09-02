@@ -395,7 +395,7 @@ footer {
 .share-sheet, .card-landing {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 80;
   background: rgba(0,0,0,.72);
   overflow: auto;
   display: grid;
@@ -436,14 +436,16 @@ footer {
   box-shadow: 0 20px 50px rgba(0,0,0,.45);
 }
 .share-sheet .script { white-space: pre-wrap; }
-.card-landing { z-index: 45; place-items: start center; }
+.card-landing { z-index: 70; place-items: start center; }
 .card-landing-inner h2 {
   font-family: "Instrument Serif", serif;
   font-size: clamp(32px, 6vw, 52px);
   font-weight: 400;
   margin: 8px 0 12px;
 }
-.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn, .chip, .card, .bleed-list button, .trophy-list li button {
+  touch-action: manipulation;
+}
 .btn[hidden] { display: none !important; }
 @media (max-width: 720px) {
   .stats, .cols, .fields, .bleed-list li { grid-template-columns: 1fr; }
